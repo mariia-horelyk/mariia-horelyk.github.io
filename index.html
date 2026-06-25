@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mariia Horelyk — Fachinformatikerin Anwendungsentwicklung</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-panel: #161b22;
+    --bg-panel-2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #8b949e;
+    --accent: #7ee787;
+    --accent-2: #58a6ff;
+    --accent-pink: #ff7b9c;
+    --mono: 'SF Mono', 'Consolas', 'Monaco', 'Courier New', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    line-height: 1.6;
+    font-size: 15px;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .titlebar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg-panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px 8px 0 0;
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.red { background: #ff5f56; }
+  .dot.yellow { background: #ffbd2e; }
+  .dot.green { background: #27c93f; }
+  .titlebar span { color: var(--text-dim); font-size: 12px; margin-left: 8px; }
+
+  .terminal {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    padding: 32px 36px;
+    margin-bottom: 40px;
+  }
+  .prompt { color: var(--accent); }
+  .path { color: var(--accent-2); }
+  .comment { color: var(--text-dim); }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 16px 0 6px;
+    letter-spacing: -0.5px;
+  }
+  .role {
+    color: var(--accent-2);
+    font-size: 16px;
+    margin-bottom: 18px;
+  }
+  .status-line {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(126,231,135,0.1);
+    border: 1px solid rgba(126,231,135,0.3);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .status-line::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+  section { margin-bottom: 40px; }
+  .section-head {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-bottom: 18px;
+  }
+  .section-head .tag { color: var(--accent-2); font-size: 13px; }
+  .section-head h2 {
+    font-size: 20px;
+    color: var(--text);
+    font-weight: 700;
+  }
+  .section-head .line { flex: 1; height: 1px; background: var(--border); }
+
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px 28px;
+  }
+  p.about { color: var(--text-dim); font-size: 14.5px; }
+  p.about .hl { color: var(--text); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 14px;
+  }
+  .skill-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+  .skill-card .cat { color: var(--accent-pink); font-size: 12px; margin-bottom: 8px; }
+  .skill-card ul { list-style: none; }
+  .skill-card li { color: var(--text); font-size: 14px; padding: 3px 0; }
+  .skill-card li::before { content: '> '; color: var(--accent); }
+
+  .proj-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 22px 26px;
+    text-align: center;
+  }
+  .soon-badge {
+    display: inline-block;
+    background: rgba(255,189,46,0.12);
+    color: #ffbd2e;
+    border: 1px solid rgba(255,189,46,0.35);
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  .proj-card p { color: var(--text-dim); font-size: 14px; }
+
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .link-card {
+    display: block;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    text-decoration: none;
+    transition: border-color 0.15s;
+  }
+  .link-card:hover { border-color: var(--accent-2); }
+  .link-card .icon { font-size: 13px; color: var(--accent-2); margin-bottom: 6px; display: block; }
+  .link-card .label { color: var(--text); font-size: 15px; font-weight: 700; }
+  .link-card .sub { color: var(--text-dim); font-size: 12px; margin-top: 4px; }
+
+  .contact-panel { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 16px; }
+  .contact-item .k { color: var(--text-dim); font-size: 12px; }
+  .contact-item .v { color: var(--accent-2); font-size: 14.5px; }
+
+  footer { text-align: center; color: var(--border); font-size: 12px; margin-top: 60px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="titlebar">
+    <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+    <span>~/profil/mariia-horelyk — zsh</span>
+  </div>
+  <div class="terminal">
+    <div><span class="prompt">$</span> <span class="path">whoami</span></div>
+    <h1>Mariia Horelyk</h1>
+    <div class="role">// Fachinformatikerin Anwendungsentwicklung (Umschulung)</div>
+    <div class="status-line">verfügbar für Praktikum ab 15.02.2027</div>
+  </div>
+
+  <section>
+    <div class="section-head"><span class="tag">01</span><h2>Über mich</h2><div class="line"></div></div>
+    <div class="panel">
+      <p class="about">
+        <span class="hl">Mein Weg in die IT ist nicht zufällig.</span> Mit einem Studium in
+        Wirtschaftsstatistik habe ich von Anfang an <span class="hl">mit Zahlen und Logik
+        gearbeitet</span> — danach mehrere Jahre lang in Werbeagenturen in der Ukraine.
+        Vor vier Jahren bin ich nach Deutschland gekommen und habe einen <span class="hl">kompletten
+        Neuanfang gewagt</span>.
+      </p>
+      <p class="about" style="margin-top: 16px;">
+        In der Umschulung haben mich besonders die ersten praktischen Mini-Projekte mit Python
+        begeistert: <span class="hl">Schon mit Grundlagenwissen lassen sich nützliche,
+        alltagstaugliche Lösungen bauen.</span> Das macht mich neugierig, was mit tiefergehenden
+        Kenntnissen erst möglich wird — genau diese Entwicklung motiviert mich an der
+        Softwareentwicklung.
+      </p>
+      <p class="about" style="margin-top: 16px;">
+        Aktuell befinde ich mich in der <span class="hl">Umschulung zur Fachinformatikerin
+        Anwendungsentwicklung</span> beim bfz Schweinfurt (wohnhaft in Bad Kissingen) —
+        voraussichtlicher Abschluss im Februar 2029. Für mein <span class="hl">Praktikum
+        (15.02.2027 – 06.08.2027)</span> suche ich ein Unternehmen, in dem ich mich aktiv in die
+        <span class="hl">Anwendungsentwicklung</span> einbringen und mein Wissen in der
+        Programmierung praxisnah vertiefen kann.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="tag">02</span><h2>Tech Stack</h2><div class="line"></div></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="cat">SPRACHEN — GRUNDLAGEN</div>
+        <ul><li>HTML / CSS</li><li>Python</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">TOOLS — GRUNDLAGEN</div>
+        <ul><li>VS Code</li><li>GitHub</li><li>Linux (Ubuntu)</li><li>Hyper-V Manager</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">GEPLANT — AB HERBST 2026</div>
+        <ul><li>SQL</li><li>Einführung C#</li><li>PHP</li></ul>
+      </div>
+      <div class="skill-card">
+        <div class="cat">SOFT SKILLS</div>
+        <ul><li>Teamfähigkeit</li><li>Lernbereitschaft</li><li>Mehrsprachigkeit</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="tag">03</span><h2>Projekte</h2><div class="line"></div></div>
+    <div class="proj-card">
+      <div class="soon-badge">bald verfügbar</div>
+      <p>Hier werden in Kürze meine ersten Projekte aus der Umschulung erscheinen.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="tag">04</span><h2>Links</h2><div class="line"></div></div>
+    <div class="links-grid">
+      <a class="link-card" href="#">
+        <span class="icon">[ PDF ]</span>
+        <div class="label">Lebenslauf herunterladen</div>
+        <div class="sub">bald verfügbar</div>
+      </a>
+      <a class="link-card" href="#">
+        <span class="icon">[ in ]</span>
+        <div class="label">LinkedIn</div>
+        <div class="sub">bald verfügbar</div>
+      </a>
+      <a class="link-card" href="#">
+        <span class="icon">[ git ]</span>
+        <div class="label">GitHub</div>
+        <div class="sub">bald verfügbar</div>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="tag">05</span><h2>Kontakt</h2><div class="line"></div></div>
+    <div class="panel contact-panel">
+      <div class="contact-item"><div class="k">E-MAIL</div><div class="v">mariia.horelyk@web.de</div></div>
+      <div class="contact-item"><div class="k">STANDORT</div><div class="v">Bad Kissingen, Bayern</div></div>
+      <div class="contact-item"><div class="k">STATUS</div><div class="v">verfügbar für Praktikum ab 15.02.2027</div></div>
+    </div>
+  </section>
+
+  <footer>// Design 1 — Code Terminal</footer>
+</div>
+</body>
+</html>
